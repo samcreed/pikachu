@@ -1,4 +1,4 @@
 pikachu
 =======
 
-small, random projects
+solutions to programming challenges from Project Euler, ACM ICPC, etc

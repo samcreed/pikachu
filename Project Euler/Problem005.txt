@@ -1,0 +1,23 @@
+Problem 005
+-----------
+
+2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+
+Solution
+--------
+
+We see the prime factorization of 2520 is
+
+2520 = 2^3 * 3^2 * 5 * 7
+
+We can construct the factors 2...10 from the above and see that they divide 2520 evenly.
+
+To do determine min(N) such that N is evenly divisible from 1...20 we must ensure that all primes < 20
+are in the prime factorization. Additionally, all composite numbers must be composable by the factors
+selected. Doing this, we see that
+
+N = 2^4 * 3^2 * 5 * 7 * 11 * 13 * 17 * 19
+  = 232792560
+
+Which is the answer.

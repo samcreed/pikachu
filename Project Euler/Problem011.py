@@ -1,7 +1,6 @@
 # http://projecteuler.net/problem=11
 
-gridstr = """
-08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
+gridstr = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
 81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
 52 70 95 23 04 60 11 42 69 24 68 56 01 32 56 71 37 02 36 91
@@ -20,33 +19,44 @@ gridstr = """
 04 42 16 73 38 25 39 11 24 94 72 18 08 46 29 32 40 62 76 36
 20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
-01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48
-"""
+01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"""
 
 # parse grid into dict for easier computation
 rows = gridstr.split("\n")
 i = 0
 grid = {}
 for row in rows:
-	grid[i] = {}
+    grid[i] = {}
     numbers = row.split(" ")
     j = 0
     for number in numbers:
-    	grid[i][j] = number
-    	j = j + 1
+        grid[i][j] = int(number)
+        j = j + 1
     i = i + 1
 
 # compute max up/down
-maxud = 0
+maxprod = 0
+for c in range(i - 4):
+    for r in range(j):
+        prod = grid[c][r] * grid[c + 1][r] * grid[c + 2][r] * grid[c + 3][r]
+        maxprod = max(prod, maxprod)
  
 # compute max left/right
-maxlr = 0
-
-# compute max diagonal back
-maxdb = 0
+for c in range(i):
+    for r in range(j - 4):
+        prod = grid[c][r] * grid[c][r + 1] * grid[c][r + 2] * grid[c][r + 3]
+        maxprod = max(prod, maxprod)
 
 # compute max diagonal forward
-maxdf = 0
+for c in range(4, i):
+    for r in range(j - 4):
+        prod = grid[c][r] * grid[c - 1][r + 1] * grid[c - 2][r + 2] * grid[c - 3][r + 3]
+        maxprod = max(prod, maxprod)
 
-max = max([maxup, maxlr, maxdb, maxdf])
-print max
+# compute max diagonal back
+for c in range(i - 4):
+    for r in range(j - 4):
+        prod = grid[c][r] * grid[c + 1][r + 1] * grid[c + 2][r + 2] * grid[c + 3][r + 3]
+        maxprod = max(prod, maxprod)
+
+print maxprod

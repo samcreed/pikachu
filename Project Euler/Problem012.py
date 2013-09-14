@@ -1,40 +1,37 @@
 # http://projecteuler.net/problem=12
 
 def T(n):
-	return n*(n+1)/2
+	return (n * (n + 1)) / 2
 
-div = {}
-def divisors(n):
-	if n not in div:
-		d = 0
-		for i in range(1, n+1):
-			if n % i == 0:
-				d += 1
-		div[n] = d
+def mult(a, b):
+	list = []
+	for i in a:
+		for j in b:
+			list.append(i*j)
+	return set(sorted(list))
 
-	return div[n]
+divisors = {}
+def div(n):
+	if n not in divisors:
+		if n < 4:
+			divisors[n] = set([1, n])
+		else:
+			a = int(n ** 0.5)
+			while n % a != 0:
+				a = a - 1
 
-# determine upper limit
-lower = 0
-upper = 10
-divtn = 0
-print "upper limit"
-while divtn <= 500:
-	lower = upper
-	upper = 2 * upper
-	divtn = divisors(T(upper))
-	print upper, divtn
+			if a == 1:
+				divisors[n] = set([1, n])
+			else:
+				divisors[n] = mult(div(n/a), div(a))
 
-# determine lowest n such that divtn > 500
-print "narrow"
-while upper - lower > 2:
-	n = (lower + upper) / 2
-	divtn = divisors(T(n))
-	print divtn
+	return divisors[n]
 
-	if divtn > 500:
-		upper = n
-	else:
-		lower = n
 
-print "done"
+n = 20
+divtn = len(div(T(n)))
+while divtn < 500:
+	n = n + 1
+	divtn = len(div(T(n)))
+
+print T(n)

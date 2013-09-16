@@ -4,15 +4,14 @@
 
 primes = [2, 3, 5, 7]
 
-pcount = 4
 number = 10
-sum = 17
+sum = sum(primes)
 
 while number < 2000000:
 	number += 1
 	isprime = True
 	for p in primes:
-		if p*p > number:
+		if p * p > number:
 			break
 		if number % p == 0:
 			isprime = False

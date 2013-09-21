@@ -14,13 +14,9 @@ for a in range(3, 333):
 			if a + b + c < 1000:
 				pcount[a + b + c] += 1
 
-print "--------------"
-
 maxp = 0
 maxi = 0
 for i in range(len(pcount)):
-	if pcount[i] > 2:
-		print i, pcount[i]
 	if pcount[i] > maxp:
 		maxp = pcount[i]
 		maxi = i
